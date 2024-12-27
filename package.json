@@ -28,7 +28,7 @@
     "test": "jest",
     "lint": "eslint . .js,.ts,.tsx --fix",
     "format": "prettier --write .",
-    "postinstall": "node scripts/createReduxFolder.js"
+    "postinstall": "node scripts/createReduxFolder.mjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
