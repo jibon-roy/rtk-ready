@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Set the JavaScript target version
+    "module": "ESNext", // Use modern ES module system
+    "moduleResolution": "Node", // Use Node module resolution strategy
+    "esModuleInterop": true, // Enable compatibility for importing CommonJS modules
+    "strict": true, // Enable all strict type-checking options
+    "skipLibCheck": true, // Skip type checking of declaration files (improves build speed)
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in filenames
+    "resolveJsonModule": true, // Allow importing of JSON modules
+    "isolatedModules": true, // Ensure each file is treated as an isolated module
+    "noEmit": true, // Do not output any files (for use with Next.js)
+    "jsx": "react-jsx", // Use React JSX transform for React 17+
+    "allowJs": true, // Allow JavaScript files to be imported
+    "lib": ["dom", "esnext"], // Include required library files
+    "declaration": true, // Generate .d.ts declaration files
+    "declarationMap": true, // Generate map files for declarations
+    "outDir": "./dist", // Output directory for compiled files
+    "baseUrl": ".", // Base directory for resolving non-relative modules
+    "paths": {
+      // Module path mappings (optional)
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*", "index.ts"], // Include all source files and entry point
+  "exclude": ["node_modules", "dist", "build"] // Exclude generated and third-party files
+}
