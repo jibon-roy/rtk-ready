@@ -1,9 +1,14 @@
+#!/usr/bin/env node
+
 import fs from 'fs';
 import path from 'path';
 
 const projectRoot = process.cwd();
 const reduxPath = path.join(projectRoot, 'src/redux'); // Destination folder for the Redux setup
-const templatePath = path.join(projectRoot, 'src/redux'); // Source folder where the template is located
+const templatePath = path.join(
+  projectRoot,
+  './node_modules/rtk-ready/src/redux'
+); // Source folder where the template is located
 
 function copyFolderSync(from, to) {
   if (!fs.existsSync(from)) {

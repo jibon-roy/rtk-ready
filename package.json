@@ -20,15 +20,17 @@
   "license": "ISC",
   "author": "Jibon Krishna Roy",
   "type": "module",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
     "test": "jest",
     "lint": "eslint . .js,.ts,.tsx --fix",
-    "format": "prettier --write .",
-    "postinstall": "node scripts/createReduxFolder.mjs"
+    "format": "prettier --write ."
+  },
+  "bin": {
+    "rtk-ready": "./scripts/createReduxFolder.mjs"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
