@@ -25,15 +25,10 @@ export const baseApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // Define the API endpoints here
-    // Example:
-    // getUser: builder.query<User, void>({
-    //   query: () => "/user",
-    // }),
     // Add other API endpoints as needed
   }),
   tagTypes: [
     "USER", // Example tag type for cache invalidation
     
-  ], // These are used for cache invalidation and re-fetching
+  ], 
 });
