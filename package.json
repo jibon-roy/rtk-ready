@@ -27,11 +27,17 @@
     "build": "tsup",
     "test": "jest",
     "lint": "eslint . .js,.ts,.tsx --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "postinstall": "node ./scripts/createReduxFolder.mjs"
   },
   "bin": {
     "rtk-ready": "./scripts/createReduxFolder.mjs"
   },
+  "files": [
+    "dist",
+    "scripts",
+    "src/redux"
+  ],
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
     "js-cookie": "^3.0.5",
