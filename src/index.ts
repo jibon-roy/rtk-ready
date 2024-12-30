@@ -92,7 +92,6 @@
 //  installDependencies();
 
 
-// src/index.ts
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
@@ -106,6 +105,7 @@ const templatePath = path.join(
   mainProjectRoot,
   "./node_modules/rtk-ready/src/redux"
 );
+const markerFilePath = path.join(reduxPath, ".rtk-ready-installed");
 
 // Utility to copy folder content recursively
 function copyFolderSync(from: string, to: string) {
@@ -135,9 +135,12 @@ function createReduxFolder() {
   if (!fs.existsSync(reduxPath)) {
     console.log(`Creating Redux folder at ${reduxPath}...`);
     copyFolderSync(templatePath, reduxPath);
+    fs.writeFileSync(markerFilePath, "true");
     console.log("Redux folder created.");
+  } else if (!fs.existsSync(markerFilePath)) {
+    console.log("Redux folder already exists but marker file is missing. Skipping.");
   } else {
-    console.log("Redux folder already exists. Skipping.");
+    console.log("Redux folder and marker file already exist. Skipping.");
   }
 }
 
@@ -173,7 +176,8 @@ function installDependencies() {
     console.log("Dependencies installed successfully.");
   } catch (error: any) {
     console.error("Error installing dependencies:", error.message);
-    process.exit(1);
+    // Exit process with a success code to prevent npm from failing.
+    process.exit(0);
   }
 }
 

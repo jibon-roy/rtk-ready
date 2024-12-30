@@ -34,6 +34,7 @@ var templatePath = import_path.default.join(
   mainProjectRoot,
   "./node_modules/rtk-ready/src/redux"
 );
+var markerFilePath = import_path.default.join(reduxPath, ".rtk-ready-installed");
 function copyFolderSync(from, to) {
   if (!import_fs.default.existsSync(from)) {
     console.error(`Source folder does not exist: ${from}`);
@@ -59,9 +60,12 @@ function createReduxFolder() {
   if (!import_fs.default.existsSync(reduxPath)) {
     console.log(`Creating Redux folder at ${reduxPath}...`);
     copyFolderSync(templatePath, reduxPath);
+    import_fs.default.writeFileSync(markerFilePath, "true");
     console.log("Redux folder created.");
+  } else if (!import_fs.default.existsSync(markerFilePath)) {
+    console.log("Redux folder already exists but marker file is missing. Skipping.");
   } else {
-    console.log("Redux folder already exists. Skipping.");
+    console.log("Redux folder and marker file already exist. Skipping.");
   }
 }
 function installDependencies() {
@@ -92,7 +96,7 @@ function installDependencies() {
     console.log("Dependencies installed successfully.");
   } catch (error) {
     console.error("Error installing dependencies:", error.message);
-    process.exit(1);
+    process.exit(0);
   }
 }
 createReduxFolder();
