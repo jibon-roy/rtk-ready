@@ -1,6 +1,6 @@
 {
   "name": "rtk-ready",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Redux utilities package for a boilerplate setup with persisted state, authentication handling, API integration, and typed hooks, providing a structured and scalable state management solution for React applications.",
   "keywords": [
     "redux",

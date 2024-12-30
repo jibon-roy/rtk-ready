@@ -27,10 +27,12 @@ After installing rtk-ready, you'll need to set up the Redux store and ReduxProvi
 
 Run the following command to automatically create the if necessary the Redux folder structure:
 
+
 after installing rtk-ready, run the following command:
+#### (Ignore if redux folder already exists)
 
 ```bash
-npm run postinstall
+npx rtk-ready
 ```
 
 This will create the following folder structure:
