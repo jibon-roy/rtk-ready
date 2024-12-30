@@ -56,7 +56,6 @@ function installDependencies() {
   try {
     execSync(`npm install ${dependencies.join(" ")}`, {
       cwd: mainProjectRoot,
-      // Run in the main project's directory
       stdio: "inherit"
     });
     const tsconfigPath = path.join(mainProjectRoot, "tsconfig.json");
@@ -64,7 +63,6 @@ function installDependencies() {
       console.log("TypeScript detected. Installing dev dependencies...");
       execSync(`npm install --save-dev ${devDependencies.join(" ")}`, {
         cwd: mainProjectRoot,
-        // Run in the main project's directory
         stdio: "inherit"
       });
     }

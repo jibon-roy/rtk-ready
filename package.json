@@ -31,12 +31,12 @@
     "postinstall": "node ./dist/index.js"
   },
   "bin": {
-    "rtk-ready": "./scripts/createReduxFolder.mjs"
+    "rtk-ready": "./dist/index.js"
   },
   "files": [
     "dist",
     "scripts",
-    "src/redux"
+    "src"
   ],
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
