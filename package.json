@@ -18,7 +18,11 @@
     "rtk-ready"
   ],
   "license": "ISC",
-  "author": "Jibon Krishna Roy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jibon-roy/rtk-ready"
+  },
+  "author": "Jibon Krishna Roy mailme.jibon@gmail.com",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -26,6 +30,7 @@
   "scripts": {
     "build": "tsup",
     "test": "jest",
+    "prepublishOnly": "npm run build",
     "lint": "eslint . .js,.ts,.tsx --fix",
     "format": "prettier --write .",
     "postinstall": "node ./dist/index.js"
