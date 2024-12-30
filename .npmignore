@@ -1,0 +1,3 @@
+# Exclude test files, configs, and source code
+node_modules/
+test/
