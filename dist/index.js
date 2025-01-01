@@ -14,7 +14,7 @@ var templatePath = path.join(
 var markerFilePath = path.join(reduxPath, ".rtk-ready-installed");
 function copyFolderSync(from, to) {
   if (!fs.existsSync(from)) {
-    console.error(`Source folder does not exist: ${from}`);
+    console.log(`Source folder does not exist: ${from}`);
     return;
   }
   fs.mkdirSync(to, { recursive: true });
@@ -27,6 +27,15 @@ function copyFolderSync(from, to) {
     }
   });
 }
+function getUniqueFolderName(basePath, folderName) {
+  let uniqueName = folderName;
+  let counter = 0;
+  while (fs.existsSync(path.join(basePath, uniqueName))) {
+    counter++;
+    uniqueName = `${folderName}(${counter})`;
+  }
+  return path.join(basePath, uniqueName);
+}
 function createReduxFolder() {
   if (!fs.existsSync(templatePath)) {
     console.error(
@@ -34,16 +43,20 @@ function createReduxFolder() {
     );
     return;
   }
-  if (!fs.existsSync(reduxPath)) {
-    console.log(`Creating Redux folder at ${reduxPath}...`);
-    copyFolderSync(templatePath, reduxPath);
-    fs.writeFileSync(markerFilePath, "true");
-    console.log("Redux folder created.");
-  } else if (!fs.existsSync(markerFilePath)) {
-    console.log("Redux folder already exists but marker file is missing. Skipping.");
-  } else {
-    console.log("Redux folder and marker file already exist. Skipping.");
+  let targetPath = reduxPath;
+  if (fs.existsSync(reduxPath)) {
+    console.log(
+      "Redux folder already exists. Searching for a unique folder name..."
+    );
+    targetPath = getUniqueFolderName(
+      fs.existsSync(srcPath) ? srcPath : mainProjectRoot,
+      "redux"
+    );
   }
+  console.log(`Creating Redux folder at ${targetPath}...`);
+  copyFolderSync(templatePath, targetPath);
+  fs.writeFileSync(path.join(targetPath, ".rtk-ready-installed"), "true");
+  console.log("Redux folder created.");
 }
 function installDependencies() {
   const dependencies = [

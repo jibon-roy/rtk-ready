@@ -37,7 +37,7 @@ var templatePath = import_path.default.join(
 var markerFilePath = import_path.default.join(reduxPath, ".rtk-ready-installed");
 function copyFolderSync(from, to) {
   if (!import_fs.default.existsSync(from)) {
-    console.error(`Source folder does not exist: ${from}`);
+    console.log(`Source folder does not exist: ${from}`);
     return;
   }
   import_fs.default.mkdirSync(to, { recursive: true });
@@ -50,6 +50,15 @@ function copyFolderSync(from, to) {
     }
   });
 }
+function getUniqueFolderName(basePath, folderName) {
+  let uniqueName = folderName;
+  let counter = 0;
+  while (import_fs.default.existsSync(import_path.default.join(basePath, uniqueName))) {
+    counter++;
+    uniqueName = `${folderName}(${counter})`;
+  }
+  return import_path.default.join(basePath, uniqueName);
+}
 function createReduxFolder() {
   if (!import_fs.default.existsSync(templatePath)) {
     console.error(
@@ -57,16 +66,20 @@ function createReduxFolder() {
     );
     return;
   }
-  if (!import_fs.default.existsSync(reduxPath)) {
-    console.log(`Creating Redux folder at ${reduxPath}...`);
-    copyFolderSync(templatePath, reduxPath);
-    import_fs.default.writeFileSync(markerFilePath, "true");
-    console.log("Redux folder created.");
-  } else if (!import_fs.default.existsSync(markerFilePath)) {
-    console.log("Redux folder already exists but marker file is missing. Skipping.");
-  } else {
-    console.log("Redux folder and marker file already exist. Skipping.");
+  let targetPath = reduxPath;
+  if (import_fs.default.existsSync(reduxPath)) {
+    console.log(
+      "Redux folder already exists. Searching for a unique folder name..."
+    );
+    targetPath = getUniqueFolderName(
+      import_fs.default.existsSync(srcPath) ? srcPath : mainProjectRoot,
+      "redux"
+    );
   }
+  console.log(`Creating Redux folder at ${targetPath}...`);
+  copyFolderSync(templatePath, targetPath);
+  import_fs.default.writeFileSync(import_path.default.join(targetPath, ".rtk-ready-installed"), "true");
+  console.log("Redux folder created.");
 }
 function installDependencies() {
   const dependencies = [
